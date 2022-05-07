@@ -1,15 +1,14 @@
 package com.zappts.api.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @Entity
 @NoArgsConstructor
@@ -17,8 +16,16 @@ import javax.persistence.Table;
 public class User {
 
     @Id
-    private  int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private  Long id;
+
+    @Column
     private String name;
+
+
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE)
+    @JsonIgnoreProperties("usuario")
+    private List<Lista> lista;
 
 
 }

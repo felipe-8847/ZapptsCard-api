@@ -1,12 +1,12 @@
 package com.zappts.api.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @Entity
 @NoArgsConstructor
@@ -15,12 +15,16 @@ public class Carta {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private String nameCard;
+    private Long id;
+    private String namecard;
     private String edicao;
-    private Enum idioma;
+    private String idioma;
     private Boolean laminada = false;
     private double preco;
-    private int cartasRepetidas;
+    private int cartasrepetidas;
+
+    @ManyToOne
+    @JsonIgnoreProperties("carta")
+    private Lista lista;
 
 }
